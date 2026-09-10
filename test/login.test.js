@@ -17,7 +17,7 @@ describe('Login', () => {
         const loginResposta = await request(app)
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
-            .send({ 'senha': 'admin123' });
+            .send({ 'email': '', 'senha': 'admin123' });
         
         expect(loginResposta.status).to.equal(400);
     });
@@ -26,7 +26,7 @@ describe('Login', () => {
         const loginResposta = await request(app)
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
-            .send({ 'email': 'admin@escola.com' });
+            .send({ 'email': 'admin@escola.com', 'senha': '' });
         
         expect(loginResposta.status).to.equal(400);
     });
