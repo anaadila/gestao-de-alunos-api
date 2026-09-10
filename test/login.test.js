@@ -20,6 +20,7 @@ describe('Login', () => {
             .send({ 'email': '', 'senha': 'admin123' });
         
         expect(loginResposta.status).to.equal(400);
+        expect(loginResposta.body.error).to.equal('Os campos "email" e "senha" são obrigatórios.')
     });
 
     it('deve retornar 400 quando o usuário não enviar senha', async () => {
@@ -29,6 +30,7 @@ describe('Login', () => {
             .send({ 'email': 'admin@escola.com', 'senha': '' });
         
         expect(loginResposta.status).to.equal(400);
+        expect(loginResposta.body.error).to.equal('Os campos "email" e "senha" são obrigatórios.')
     });
 
     it('deve retornar 401 quando o usuário inserir uma senha incorreta', async () => {
@@ -38,6 +40,7 @@ describe('Login', () => {
             .send({ 'email': 'admin@escola.com', 'senha': 'admin1234' });
         
         expect(loginResposta.status).to.equal(401);
+        expect(loginResposta.body.error).to.equal('E-mail ou senha inválidos.')
     });
 
     it('deve retornar 401 quando o usuário for inexistente', async () => {
@@ -47,6 +50,7 @@ describe('Login', () => {
             .send({ 'email': 'inexistente@inexistente.com', 'senha': 'admin123' });
         
         expect(loginResposta.status).to.equal(401);
+        expect(loginResposta.body.error).to.equal('E-mail ou senha inválidos.')
     });
 
 });
