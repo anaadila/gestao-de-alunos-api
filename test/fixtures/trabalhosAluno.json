@@ -1,0 +1,42 @@
+[
+    {
+        "testTitle": "Deve registrar um trabalho para uma disciplina em que a aluna Ana está matriculado",
+        "dadosAluno": {
+            "nome": "Ana Ádila",
+            "email": "anaadila@example.com",
+            "matricula": "A123456",
+            "senha": "123456"
+        },
+        "dadosDisciplina": {
+            "nome": "Automação de Testes na Camada de Serviço (API)",
+            "codigo": "ATCS0001",
+            "cargaHoraria": 60
+        },
+        "dadosTrabalho": {
+            "titulo": "Trabalho final de Automação de Testes na Camada de Serviço (API)",
+            "descricao": "Repositório do trabalho final de Automação de Testes na Camada de Serviço (API) do curso de Pós-Graduação em Testes de Software."
+        },
+        "statusEsperado": "entregue",
+        "statusCodeEsperado": 201
+    },
+    {
+        "testTitle": "Deve registrar um trabalho para uma disciplina em que o aluno Gabriel está matriculado",
+        "dadosAluno": {
+            "nome": "Gabriel Silva",
+            "email": "gabrielsilva@example.com",
+            "matricula": "G789012",
+            "senha": "123456"
+        },
+        "dadosDisciplina": {
+            "nome": "Automação de Testes",
+            "codigo": "AT0001",
+            "cargaHoraria": 60
+        },
+        "dadosTrabalho": {
+            "titulo": "Trabalho final de Automação de Testes",
+            "descricao": "Repositório do trabalho final de Automação de Testes do curso de Pós-Graduação em Testes de Software."
+        },
+        "statusEsperado": "entregue",
+        "statusCodeEsperado": 201
+    }
+]
