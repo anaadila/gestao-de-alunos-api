@@ -5,7 +5,7 @@ import testesDeMatriculas from '../fixtures/matriculas.json' with { type: 'json'
 
 describe('Matrícula de Aluno em Disciplina', async () => {
     testesDeMatriculas.forEach(testeDeMatricula => {
-        it.only(testeDeMatricula.testTitle, async() => {
+        it(testeDeMatricula.testTitle, async() => {
             const cadastroAlunoReposta = await api()
             .post('/api/admin/alunos')
             .set('Content-Type', 'application/json')
