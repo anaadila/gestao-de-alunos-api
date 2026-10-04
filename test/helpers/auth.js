@@ -2,7 +2,6 @@ import { api } from '../helpers/api.js'
 import 'dotenv/config'
 
 let cacheTokenAdmin = null
-let cacheTokenAluno = null
 
 export async function adminToken() {
     if (!cacheTokenAdmin) {
@@ -19,8 +18,6 @@ export async function adminToken() {
 
     return `Bearer ${cacheTokenAdmin}`
 }
-
-const BASE_URL = process.env.BASE_URL || 'hhttp://localhost:3000';
 
 export async function alunoToken(email = process.env.ALUNO_EMAIL, senha = process.env.ALUNO_PASSWORD) {
     const loginResposta = await api()
