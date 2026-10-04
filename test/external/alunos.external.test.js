@@ -1,11 +1,11 @@
 import { api } from '../helpers/api.js'
 import { expect } from 'chai';
-import { adminToken, alunoToken } from '../helpers/auth.js'
+import { adminToken } from '../helpers/auth.js'
 import testesDeAlunos from '../fixtures/alunos.json' with { type: 'json' };
 import 'dotenv/config'
 
 
-describe.only('Alunos - External', () => {
+describe('Alunos - External', () => {
 
     let alunosCadastradosId = []
 
