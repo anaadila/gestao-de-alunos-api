@@ -30,4 +30,10 @@ jobs:
         run: sleep 10
 
       - name: RODAR TESTES
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          ALUNO_EMAIL: ${{ secrets.ALUNO_EMAIL }}
+          ALUNO_PASSWORD: ${{ secrets.ALUNO_PASSWORD }}
         run: npm test
