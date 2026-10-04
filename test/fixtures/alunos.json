@@ -1,0 +1,35 @@
+[
+    {
+        "testTitle": "Deve cadastrar a aluna Maria quando ela informa dados válidos",
+        "dadosAluno": { 
+            "nome": "Maria Silva",
+            "email": "maria@email.com", 
+            "matricula": "2026100",
+            "senha": "12345678" 
+        },
+        "roleEsperada": "aluno",
+        "statusCodeEsperado": 201
+    },
+    {
+        "testTitle": "Deve cadastrar o aluno Gabriel quando ele informa dados válidos",
+        "dadosAluno": { 
+            "nome": "Gabriel Santos",
+            "email": "gabriel@email.com", 
+            "matricula": "2026101",
+            "senha": "87654321" 
+        },
+        "roleEsperada": "aluno",
+        "statusCodeEsperado": 201
+    },
+    {
+        "testTitle": "Deve cadastrar a aluna Ana quando ela informa dados válidos",
+        "dadosAluno": { 
+            "nome": "Ana Paula",
+            "email": "ana@email.com", 
+            "matricula": "2026102",
+            "senha": "12345678" 
+        },
+        "roleEsperada": "aluno",
+        "statusCodeEsperado": 201
+    }
+]

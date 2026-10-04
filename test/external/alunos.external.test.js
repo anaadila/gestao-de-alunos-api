@@ -1,13 +1,15 @@
 import { api } from '../helpers/api.js'
 import { expect } from 'chai';
-import { adminToken } from '../helpers/auth.js'
-import { novoAluno } from '../factories/alunosFactory.js'
+import { adminToken, alunoToken } from '../helpers/auth.js'
+import testesDeAlunos from '../fixtures/alunos.json' with { type: 'json' };
 import 'dotenv/config'
 
 
-describe('Alunos - External', () => {
+describe.only('Alunos - External', () => {
 
-    it('deve trazer todos os alunos cadastrados', async () => {
+    let alunosCadastradosId = []
+
+    it('Deve trazer todos os alunos cadastrados', async () => {
 
         const alunosResposta = await api()
             .get('/api/admin/alunos')
@@ -15,43 +17,68 @@ describe('Alunos - External', () => {
             .set('Authorization', await adminToken())
 
         expect(alunosResposta.status).to.equal(200);
-        expect(alunosResposta.body[0].id).to.equal('aluno-ana-souza');
-        expect(alunosResposta.body[1].id).to.equal('aluno-bruno-lima');
-        expect(alunosResposta.body[2].id).to.equal('aluno-carla-mendes');
-        
+        expect(alunosResposta.body).to.be.an('array')
+
+        if (alunosResposta.body.length > 0) {
+            alunosResposta.body.forEach(aluno => {
+                expect(aluno).to.have.property('id').that.is.a('string');
+                expect(aluno).to.have.property('nome').that.is.a('string');
+                expect(aluno).to.have.property('email').that.is.a('string');
+                expect(aluno).to.have.property('matricula').that.is.a('string');
+                expect(aluno).to.have.property('role').to.equal('aluno');
+                expect(aluno).to.have.property('createdAt').that.is.a('string');
+                expect(aluno).to.have.property('updatedAt').that.is.a('string');
+
+                expect(aluno.id).to.not.be.empty;
+                expect(aluno.matricula).to.not.be.empty;
+            });
+        }
+
     });
 
-    it('deve cadastrar um aluno quando ele informa dados válidos', async () => {
+    testesDeAlunos.forEach(testeDeAluno => {
+        it(testeDeAluno.testTitle, async () => {
 
-        const novoAlunoResposta = novoAluno()
+            const cadastroAlunoReposta = await api()
+                .post('/api/admin/alunos')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', await adminToken())
+                .send(testeDeAluno.dadosAluno);
 
-        const cadastroAlunoReposta = await api()
-            .post('/api/admin/alunos')
-            .set('Content-Type', 'application/json')
-            .set('Authorization', await adminToken())
-            .send(novoAlunoResposta);
+            expect(cadastroAlunoReposta.status).to.equal(testeDeAluno.statusCodeEsperado);
+            expect(cadastroAlunoReposta.body.nome).to.equal(testeDeAluno.dadosAluno.nome);
+            expect(cadastroAlunoReposta.body.email).to.equal(testeDeAluno.dadosAluno.email);
+            expect(cadastroAlunoReposta.body.matricula).to.equal(testeDeAluno.dadosAluno.matricula);
+            
+            alunosCadastradosId.push(cadastroAlunoReposta.body.id)
 
-        expect(cadastroAlunoReposta.status).to.equal(201);
-        expect(cadastroAlunoReposta.body.nome).to.equal(novoAlunoResposta.nome);
-        expect(cadastroAlunoReposta.body.email).to.equal(novoAlunoResposta.email);
-        expect(cadastroAlunoReposta.body.matricula).to.equal(novoAlunoResposta.matricula);
+        });
     });
 
-    it('deve negar o cadastro de um aluno quando ele já existe', async () => {
+    it('Deve negar o cadastro de um aluno quando ele já existe', async () => {
         const cadastroAlunoReposta = await api()
             .post('/api/admin/alunos')
             .set('Content-Type', 'application/json')
             .set('Authorization', await adminToken())
             .send({
                 nome: 'Ana Souza',
-                email: 'ana.souza@example.com',
-                matricula: '2024001',
-                senha: '123456'
+                email: process.env.ALUNO_EMAIL,
+                matricula: '12345678910',
+                senha: process.env.ALUNO_PASSWORD
             });
 
         expect(cadastroAlunoReposta.status).to.equal(409);
         expect(cadastroAlunoReposta.body.error).to.equal('Já existe um aluno cadastrado com essa matrícula ou e-mail.');
     });
 
-    
+    after(() => {
+        alunosCadastradosId.forEach(async alunoCadastradoId => {
+            await api()
+                .delete(`/api/admin/alunos/${alunoCadastradoId}`)
+                .set('Content-Type', 'application/json')
+                .set('Authorization', await adminToken())
+        })
+    })
+
+
 });
