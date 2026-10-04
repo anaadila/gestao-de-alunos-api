@@ -1,12 +1,11 @@
 import { api } from '../helpers/api.js'
 import { expect } from 'chai';
-import testesDeLoginAdmin from '../fixtures/loginAdminNegativos.json' with { type: 'json' };
-import testesDeLoginAluno from '../fixtures/loginAlunoNegativos.json' with { type: 'json' };
+import testesDeLogin from '../fixtures/login.json' with { type: 'json' };
 import 'dotenv/config'
 
 
 
-describe('Login - External', () => {
+describe.only('Login - External', () => {
 
     it('ADMIN - Deve retornar 200 quando o usuário e senha forem corretos', async () => {
         const loginResposta = await api()
@@ -18,7 +17,7 @@ describe('Login - External', () => {
         expect(loginResposta.body.usuario.role).to.equal('admin')
     });
 
-    testesDeLoginAdmin.forEach(testeDeLogin => {
+    testesDeLogin.filter(casos => casos.tipo === 'admin').forEach(testeDeLogin => {
         it(testeDeLogin.testTitle, async () => {
             const loginResposta = await api()
                 .post('/api/auth/login')
@@ -40,7 +39,7 @@ describe('Login - External', () => {
         expect(loginResposta.body.usuario.role).to.equal('aluno')
     });
 
-    testesDeLoginAluno.forEach(testeDeLoginAluno => {
+    testesDeLogin.filter(casos => casos.tipo === 'aluno').forEach(testeDeLoginAluno => {
         it(testeDeLoginAluno.testTitle, async () => {
             const loginResposta = await api()
                 .post('/api/auth/login')
