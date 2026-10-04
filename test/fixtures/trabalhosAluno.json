@@ -1,6 +1,7 @@
 [
     {
         "testTitle": "Deve registrar um trabalho para uma disciplina em que a aluna Ana está matriculado",
+        "tipo": "positivo",
         "dadosAluno": {
             "nome": "Ana Ádila",
             "email": "anaadila@example.com",
@@ -21,6 +22,7 @@
     },
     {
         "testTitle": "Deve registrar um trabalho para uma disciplina em que o aluno Gabriel está matriculado",
+        "tipo": "positivo",
         "dadosAluno": {
             "nome": "Gabriel Silva",
             "email": "gabrielsilva@example.com",
@@ -38,5 +40,70 @@
         },
         "statusEsperado": "entregue",
         "statusCodeEsperado": 201
+    },
+    {
+        "testTitle": "Deve retornar 409 ao registrar um trabalho para uma disciplina em que um aluno não está matriculado",
+        "tipo": "negativo",
+        "token": null,
+        "alunoId": "aluno-ana-souza",
+        "dadosTrabalho": {
+            "disciplinaId": "disciplina-historia",
+            "titulo": "Trabalho final de Automação de Testes na Camada de Serviço (API)",
+            "descricao": "Repositório do trabalho final de Automação de Testes na Camada de Serviço (API) do curso de Pós-Graduação em Testes de Software."
+        },
+        "mensagemDeErroEsperada": "O aluno não está matriculado nesta disciplina.",
+        "statusCodeEsperado": 409
+    },
+    {
+        "testTitle": "Deve retornar 404 ao registrar um trabalho para uma disciplina não encontrada",
+        "tipo": "negativo",
+        "token": null,
+        "alunoId": "aluno-ana-souza",
+        "dadosTrabalho": {
+            "disciplinaId": "disciplina",
+            "titulo": "Trabalho final de Automação de Testes na Camada de Serviço (API)",
+            "descricao": "Repositório do trabalho final de Automação de Testes na Camada de Serviço (API) do curso de Pós-Graduação em Testes de Software."
+        },
+        "mensagemDeErroEsperada": "Disciplina com id \"disciplina\" não encontrada.",
+        "statusCodeEsperado": 404
+    },
+    {
+        "testTitle": "Deve retornar 400 ao registrar um trabalho sem id em uma disciplina em que um aluno está matriculado",
+        "tipo": "negativo",
+        "token": null,
+        "alunoId": "aluno-ana-souza",
+        "dadosTrabalho": {
+            "disciplinaId": "",
+            "titulo": "Trabalho final de Automação de Testes na Camada de Serviço (API)",
+            "descricao": "Repositório do trabalho final de Automação de Testes na Camada de Serviço (API) do curso de Pós-Graduação em Testes de Software."
+        },
+        "mensagemDeErroEsperada": "Os campos \"disciplinaId\" e \"titulo\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "Deve retornar 400 ao registrar um trabalho sem titulo em uma disciplina em que um aluno está matriculado",
+        "tipo": "negativo",
+        "token": null,
+        "alunoId": "aluno-ana-souza",
+        "dadosTrabalho": {
+            "disciplinaId": "disciplina-matematica",
+            "titulo": "",
+            "descricao": "Repositório do trabalho final de Automação de Testes na Camada de Serviço (API) do curso de Pós-Graduação em Testes de Software."
+        },
+        "mensagemDeErroEsperada": "Os campos \"disciplinaId\" e \"titulo\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "Deve retornar 401 ao registrar um trabalho em uma disciplina em que um aluno está matriculado com token inválido",
+        "tipo": "negativo",
+        "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbi1wcmluY2lwYWwiLCJyb2xlIjoiYWRtaW4iLCJub21lIjoiQWRtaW5pc3RyYWRvciBkbyBTaXN0ZW1hIiwiaWF0IjoxNzg4NTYyNTI2LCJleHAiOjE3ODg1OTEzMjZ9.j3L7qMrZ6ua55Hnf5wyjsSff1IysvcKeKWha_RkPcSU-INVALIDO",
+        "alunoId": "aluno-ana-souza",
+        "dadosTrabalho": {
+            "disciplinaId": "disciplina-matematica",
+            "titulo": "Trabalho final de Automação de Testes na Camada de Serviço (API)",
+            "descricao": "Repositório do trabalho final de Automação de Testes na Camada de Serviço (API) do curso de Pós-Graduação em Testes de Software."
+        },
+        "mensagemDeErroEsperada": "Token de autenticação inválido ou expirado.",
+        "statusCodeEsperado": 401
     }
 ]
