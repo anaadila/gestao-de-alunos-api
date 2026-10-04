@@ -1,10 +1,11 @@
 import { api } from '../helpers/api.js'
 import 'dotenv/config'
 
-let cacheToken = null
+let cacheTokenAdmin = null
+let cacheTokenAluno = null
 
 export async function adminToken() {
-    if (!cacheToken) {
+    if (!cacheTokenAdmin) {
     const loginResposta = await api()
         .post('/api/auth/login')
         .set('Content-Type', 'application/json')
@@ -13,8 +14,24 @@ export async function adminToken() {
             senha: process.env.ADMIN_PASSWORD 
         });
     
-    cacheToken = loginResposta.body.token;
+    cacheTokenAdmin = loginResposta.body.token;
     }
 
-    return `Bearer ${cacheToken}`
+    return `Bearer ${cacheTokenAdmin}`
+}
+
+export async function alunoToken() {
+    if (!cacheTokenAluno) {
+    const loginResposta = await api()
+        .post('/api/auth/login')
+        .set('Content-Type', 'application/json')
+        .send({ 
+            email: process.env.ALUNO_EMAIL, 
+            senha: process.env.ALUNO_PASSWORD 
+        });
+    
+    cacheTokenAluno = loginResposta.body.token;
+    }
+
+    return `Bearer ${cacheTokenAluno}`
 }
