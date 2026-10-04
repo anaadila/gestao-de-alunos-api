@@ -1,0 +1,34 @@
+[
+    {
+        "testTitle": "ADMIN - Deve retornar 400 quando o usuário não enviar email no login de admin",
+        "dadosLogin": { 
+            "email": "", 
+            "senha": "admin123" },
+        "mensagemDeErroEsperada": "Os campos \"email\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "ADMIN - Deve retornar 400 quando o usuário não enviar senha no login de admin",
+        "dadosLogin": { 
+            "email": "admin@escola.com", 
+            "senha": "" },
+        "mensagemDeErroEsperada": "Os campos \"email\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "ADMIN - Deve retornar 401 quando o usuário inserir uma senha incorreta no login de admin",
+        "dadosLogin": { 
+            "email": "admin@escola.com", 
+            "senha": "admin1234" },
+        "mensagemDeErroEsperada": "E-mail ou senha inválidos.",
+        "statusCodeEsperado": 401
+    },
+    {
+        "testTitle": "ADMIN - Deve retornar 401 quando o usuário for inexistente no login de admin",
+        "dadosLogin": { 
+            "email": "inexistente@inexistente.com", 
+            "senha": "admin1234" },
+        "mensagemDeErroEsperada": "E-mail ou senha inválidos.",
+        "statusCodeEsperado": 401
+    }
+]
