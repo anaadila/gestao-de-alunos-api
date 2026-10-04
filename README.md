@@ -270,6 +270,13 @@ incluindo cenários internos e externos.
 A pasta `test/helpers/` contém utilitários de apoio para autenticação e requisições HTTP, e as pastas
 `test/fixtures/` e `test/factories/` centralizam dados e objetos de apoio usados pelos testes.
 
+### Integração contínua (CI)
+
+Os testes também são executados automaticamente pelo GitHub Actions, conforme o workflow
+[`test.yml`](.github/workflows/test.yml). O pipeline roda em `push` e `pull_request` direcionados
+à branch `main`, além de permitir execução manual. Ele usa Ubuntu e Node.js 20, instala as
+dependências, inicia a API, aguarda 10 segundos e executa `npm test`.
+
 ### Configuração do ambiente para testes externos
 
 Os testes externos chamam a API em execução por meio da variável `BASE_URL`. Para configurar o
