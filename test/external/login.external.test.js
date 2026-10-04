@@ -5,7 +5,7 @@ import 'dotenv/config'
 
 
 
-describe.only('Login - External', () => {
+describe('Login - External', () => {
 
     it('ADMIN - Deve retornar 200 quando o usuário e senha forem corretos', async () => {
         const loginResposta = await api()

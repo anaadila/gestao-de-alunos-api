@@ -1,6 +1,6 @@
 import { api } from '../helpers/api.js'
 import { expect } from 'chai';
-import { adminToken } from '../helpers/auth.js'
+import { adminToken, alunoToken } from '../helpers/auth.js'
 import testesDeAlunos from '../fixtures/alunos.json' with { type: 'json' };
 import 'dotenv/config'
 
@@ -36,7 +36,7 @@ describe('Alunos - External', () => {
 
     });
 
-    testesDeAlunos.forEach(testeDeAluno => {
+    testesDeAlunos.filter(casos => casos.tipo === 'positivo').forEach(testeDeAluno => {
         it(testeDeAluno.testTitle, async () => {
 
             const cadastroAlunoReposta = await api()
@@ -55,7 +55,7 @@ describe('Alunos - External', () => {
         });
     });
 
-    it('Deve negar o cadastro de um aluno quando ele já existe', async () => {
+    it('Deve retornar 409 quando o cadastro de um aluno já existe', async () => {
         const cadastroAlunoReposta = await api()
             .post('/api/admin/alunos')
             .set('Content-Type', 'application/json')
@@ -69,6 +69,50 @@ describe('Alunos - External', () => {
 
         expect(cadastroAlunoReposta.status).to.equal(409);
         expect(cadastroAlunoReposta.body.error).to.equal('Já existe um aluno cadastrado com essa matrícula ou e-mail.');
+    });
+
+    it('Deve retornar 403 quando utilizar token de aluno para realizar o cadastro de um novo aluno', async () => {
+        const cadastroAlunoReposta = await api()
+            .post('/api/admin/alunos')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', await alunoToken())
+            .send({
+                nome: 'Novo Aluno',
+                email: 'novo.aluno@email',
+                matricula: '123456',
+                senha: '123456'
+            });
+
+        expect(cadastroAlunoReposta.status).to.equal(403);
+        expect(cadastroAlunoReposta.body.error).to.equal('Você não tem permissão para acessar este recurso.');
+    });
+
+    testesDeAlunos.filter(casos => casos.tipo === 'negativo-401').forEach(testeDeAluno => {
+        it(testeDeAluno.testTitle, async () => {
+            const cadastroAlunoReposta = await api()
+                .post('/api/admin/alunos')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', `Bearer ${testeDeAluno.token}`)
+                .send(testeDeAluno.dadosAluno);
+
+            expect(cadastroAlunoReposta.status).to.equal(testeDeAluno.statusCodeEsperado);
+            expect(cadastroAlunoReposta.body.error).to.equal(testeDeAluno.mensagemdeErroEsperada);
+        });
+    });
+
+    testesDeAlunos.filter(casos => casos.tipo === 'negativo-400').forEach(testeDeAluno => {
+        it(testeDeAluno.testTitle, async () => {
+
+            const cadastroAlunoReposta = await api()
+                .post('/api/admin/alunos')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', await adminToken())
+                .send(testeDeAluno.dadosAluno);
+
+            expect(cadastroAlunoReposta.status).to.equal(testeDeAluno.statusCodeEsperado);
+            expect(cadastroAlunoReposta.body.error).to.equal(testeDeAluno.mensagemdeErroEsperada);
+
+        });
     });
 
     after(() => {
