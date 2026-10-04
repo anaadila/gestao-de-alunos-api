@@ -1,6 +1,6 @@
 [
     {
-        "testTitle": "ADMIN - Deve retornar 400 quando o usuário não enviar email",
+        "testTitle": "ALUNO - Deve retornar 400 quando o usuário não enviar email",
         "dadosLogin": { 
             "email": "", 
             "senha": "senha123" },
@@ -8,23 +8,23 @@
         "statusCodeEsperado": 400
     },
     {
-        "testTitle": "ADMIN - Deve retornar 400 quando o usuário não enviar senha",
+        "testTitle": "ALUNO - Deve retornar 400 quando o usuário não enviar senha",
         "dadosLogin": { 
-            "email": "email@escola.com", 
+            "email": "aluno@email.com", 
             "senha": "" },
         "mensagemDeErroEsperada": "Os campos \"email\" e \"senha\" são obrigatórios.",
         "statusCodeEsperado": 400
     },
     {
-        "testTitle": "ADMIN - Deve retornar 401 quando o usuário inserir uma senha incorreta",
+        "testTitle": "ALUNO - Deve retornar 401 quando o usuário inserir uma senha incorreta",
         "dadosLogin": { 
-            "email": "admin@escola.com", 
+            "email": "ana.souza@example.com", 
             "senha": "senha12345" },
         "mensagemDeErroEsperada": "E-mail ou senha inválidos.",
         "statusCodeEsperado": 401
     },
     {
-        "testTitle": "ADMIN - Deve retornar 401 quando o usuário for inexistente",
+        "testTitle": "ALUNO - Deve retornar 401 quando o usuário for inexistente",
         "dadosLogin": { 
             "email": "inexistente@inexistente.com", 
             "senha": "senha123" },
