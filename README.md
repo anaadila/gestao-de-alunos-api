@@ -241,3 +241,20 @@ curl -X POST http://localhost:3000/api/alunos/aluno-ana-souza/trabalhos \
 
 > Novos registros criados via API recebem ids no formato UUID (gerados com
 > `crypto.randomUUID()`), diferente dos ids legíveis usados nos dados fake acima.
+
+## Testes
+
+Os testes external usam `BASE_URL` para chamar uma API em execução. Copie `.env.example`
+para `.env` e ajuste os valores de acordo com a descrição. 
+
+Inicie a API em um terminal:
+
+```bash
+npm start
+```
+
+Em outro terminal, execute a suíte completa:
+
+```bash
+npm test
+```

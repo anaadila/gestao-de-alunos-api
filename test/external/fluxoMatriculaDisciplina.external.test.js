@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { adminToken } from '../helpers/auth.js';
 import testesDeMatriculas from '../fixtures/matriculas.json' with { type: 'json' };
 
-describe('Matrícula de Aluno em Disciplina - External', async () => {
+describe('Matrícula de Aluno em Disciplina - External', () => {
 
     let alunosCadastradosId = []
     let disciplinasCadastradasId = []
@@ -44,20 +44,20 @@ describe('Matrícula de Aluno em Disciplina - External', async () => {
         })
     });
 
-    after(() => {
-        alunosCadastradosId.forEach(async alunoCadastradoId => {
+    after(async () => {
+        for (const alunoCadastradoId of alunosCadastradosId) {
             await api()
                 .delete(`/api/admin/alunos/${alunoCadastradoId}`)
                 .set('Content-Type', 'application/json')
                 .set('Authorization', await adminToken())
-        })
+        }
 
-        disciplinasCadastradasId.forEach(async disciplinaCadastradaId => {
+        for (const disciplinaCadastradaId of disciplinasCadastradasId) {
             await api()
                 .delete(`/api/admin/disciplinas/${disciplinaCadastradaId}`)
                 .set('Content-Type', 'application/json')
                 .set('Authorization', await adminToken())
-        })
+        }
     })
 
 });

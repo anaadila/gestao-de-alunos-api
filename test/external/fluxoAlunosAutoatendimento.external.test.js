@@ -90,19 +90,19 @@ describe('Alunos Autoatendimento  - External', () => {
         expect(cadastroTrabalhoResposta.body.error).to.equal('Você só pode acessar os seus próprios dados.');
     });
 
-    after(() => {
-        alunosCadastradosId.forEach(async alunoCadastradoId => {
+    after(async () => {
+        for (const alunoCadastradoId of alunosCadastradosId) {
             await api()
                 .delete(`/api/admin/alunos/${alunoCadastradoId}`)
                 .set('Content-Type', 'application/json')
                 .set('Authorization', await adminToken())
-        })
+        }
 
-        disciplinasCadastradasId.forEach(async disciplinaCadastradaId => {
+        for (const disciplinaCadastradaId of disciplinasCadastradasId) {
             await api()
                 .delete(`/api/admin/disciplinas/${disciplinaCadastradaId}`)
                 .set('Content-Type', 'application/json')
                 .set('Authorization', await adminToken())
-        })
+        }
     })
 });

@@ -18,21 +18,20 @@ describe('Alunos - External', () => {
 
         expect(alunosResposta.status).to.equal(200);
         expect(alunosResposta.body).to.be.an('array')
+        expect(alunosResposta.body).to.have.length.greaterThan(0);
 
-        if (alunosResposta.body.length > 0) {
-            alunosResposta.body.forEach(aluno => {
-                expect(aluno).to.have.property('id').that.is.a('string');
-                expect(aluno).to.have.property('nome').that.is.a('string');
-                expect(aluno).to.have.property('email').that.is.a('string');
-                expect(aluno).to.have.property('matricula').that.is.a('string');
-                expect(aluno).to.have.property('role').to.equal('aluno');
-                expect(aluno).to.have.property('createdAt').that.is.a('string');
-                expect(aluno).to.have.property('updatedAt').that.is.a('string');
+        alunosResposta.body.forEach(aluno => {
+            expect(aluno).to.have.property('id').that.is.a('string');
+            expect(aluno).to.have.property('nome').that.is.a('string');
+            expect(aluno).to.have.property('email').that.is.a('string');
+            expect(aluno).to.have.property('matricula').that.is.a('string');
+            expect(aluno).to.have.property('role').to.equal('aluno');
+            expect(aluno).to.have.property('createdAt').that.is.a('string');
+            expect(aluno).to.have.property('updatedAt').that.is.a('string');
 
-                expect(aluno.id).to.not.be.empty;
-                expect(aluno.matricula).to.not.be.empty;
-            });
-        }
+            expect(aluno.id).to.not.be.empty;
+            expect(aluno.matricula).to.not.be.empty;
+        });
 
     });
 
@@ -115,13 +114,13 @@ describe('Alunos - External', () => {
         });
     });
 
-    after(() => {
-        alunosCadastradosId.forEach(async alunoCadastradoId => {
+    after(async () => {
+        for (const alunoCadastradoId of alunosCadastradosId) {
             await api()
                 .delete(`/api/admin/alunos/${alunoCadastradoId}`)
                 .set('Content-Type', 'application/json')
                 .set('Authorization', await adminToken())
-        })
+        }
     })
 
 

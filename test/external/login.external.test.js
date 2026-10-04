@@ -14,6 +14,9 @@ describe('Login - External', () => {
             .send({ 'email': process.env.ADMIN_EMAIL, 'senha': process.env.ADMIN_PASSWORD });
         
         expect(loginResposta.status).to.equal(200);
+        expect(loginResposta.body.token).to.be.a('string').and.not.empty;
+        expect(loginResposta.body.usuario.id).to.be.a('string').and.not.empty;
+        expect(loginResposta.body.usuario.email).to.equal(process.env.ADMIN_EMAIL);
         expect(loginResposta.body.usuario.role).to.equal('admin')
     });
 
@@ -36,6 +39,9 @@ describe('Login - External', () => {
             .send({ 'email': process.env.ALUNO_EMAIL, 'senha': process.env.ALUNO_PASSWORD });
         
         expect(loginResposta.status).to.equal(200);
+        expect(loginResposta.body.token).to.be.a('string').and.not.empty;
+        expect(loginResposta.body.usuario.id).to.be.a('string').and.not.empty;
+        expect(loginResposta.body.usuario.email).to.equal(process.env.ALUNO_EMAIL);
         expect(loginResposta.body.usuario.role).to.equal('aluno')
     });
 
