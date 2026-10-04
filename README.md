@@ -242,19 +242,52 @@ curl -X POST http://localhost:3000/api/alunos/aluno-ana-souza/trabalhos \
 > Novos registros criados via API recebem ids no formato UUID (gerados com
 > `crypto.randomUUID()`), diferente dos ids legíveis usados nos dados fake acima.
 
-## Testes
+## Testes automatizados
 
-Os testes external usam `BASE_URL` para chamar uma API em execução. Copie `.env.example`
-para `.env` e ajuste os valores de acordo com a descrição. 
+A suíte de testes do projeto usa `Mocha` com `Chai`, `Supertest` e `Sinon`, e é executada pelo
+script principal:
 
-Inicie a API em um terminal:
+```bash
+npm test
+```
+
+Esse comando roda todos os arquivos de teste com extensão `.test.js` dentro da pasta `test/`,
+incluindo cenários internos e externos.
+
+### Estrutura atual dos testes
+
+- `test/internal/login.test.js` — testes internos do fluxo de login. Validam respostas,
+  mensagens de erro e comportamento em situações como usuário inexistente, credenciais inválidas
+  e falha simulada no serviço de autenticação.
+- `test/external/login.external.test.js` — testes de login via HTTP real, usando as credenciais de
+  administrador e aluno configuradas no ambiente.
+- `test/external/alunos.external.test.js` — testes de cadastro, listagem e validações de alunos.
+- `test/external/fluxoAlunosAutoatendimento.external.test.js` — cenários de autoatendimento do aluno,
+  como consulta de disciplinas, notas e registro de trabalhos.
+- `test/external/fluxoMatriculaDisciplina.external.test.js` — testes de matrícula de alunos em
+  disciplinas.
+
+A pasta `test/helpers/` contém utilitários de apoio para autenticação e requisições HTTP, e as pastas
+`test/fixtures/` e `test/factories/` centralizam dados e objetos de apoio usados pelos testes.
+
+### Configuração do ambiente para testes externos
+
+Os testes externos chamam a API em execução por meio da variável `BASE_URL`. Para configurar o
+ambiente, copie o arquivo `.env.example` para `.env` e preencha os valores de acordo.
+
+### Como executar
+
+1. Inicie a API em um terminal:
 
 ```bash
 npm start
 ```
 
-Em outro terminal, execute a suíte completa:
+2. Em outro terminal, execute a suíte completa:
 
 ```bash
 npm test
 ```
+
+> Observação: os testes externos dependem da API já estar rodando. Já os testes internos usam a
+> instância da aplicação diretamente e podem ser executados como parte da mesma suíte via `npm test`.
