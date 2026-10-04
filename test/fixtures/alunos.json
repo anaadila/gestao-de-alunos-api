@@ -1,0 +1,118 @@
+[
+    {
+        "testTitle": "Deve cadastrar a aluna Maria quando ela informa dados válidos",
+        "tipo": "positivo",
+        "dadosAluno": { 
+            "nome": "Maria Silva",
+            "email": "maria@email.com", 
+            "matricula": "2026100",
+            "senha": "12345678" 
+        },
+        "roleEsperada": "aluno",
+        "statusCodeEsperado": 201
+    },
+    {
+        "testTitle": "Deve cadastrar o aluno Gabriel quando ele informa dados válidos",
+        "tipo": "positivo",
+        "dadosAluno": { 
+            "nome": "Gabriel Santos",
+            "email": "gabriel@email.com", 
+            "matricula": "2026101",
+            "senha": "87654321" 
+        },
+        "roleEsperada": "aluno",
+        "statusCodeEsperado": 201
+    },
+    {
+        "testTitle": "Deve cadastrar a aluna Ana quando ela informa dados válidos",
+        "tipo": "positivo",
+        "dadosAluno": { 
+            "nome": "Ana Paula",
+            "email": "ana@email.com", 
+            "matricula": "2026102",
+            "senha": "12345678" 
+        },
+        "roleEsperada": "aluno",
+        "statusCodeEsperado": 201
+    },
+    {
+        "testTitle": "Deve retornar 400 quando não enviar o nome do aluno",
+        "tipo": "negativo-400",
+        "dadosAluno": { 
+            "nome": "",
+            "email": "gabriel@email.com", 
+            "matricula": "2026101",
+            "senha": "87654321" 
+        },
+        "roleEsperada": null,
+        "mensagemdeErroEsperada": "Os campos \"nome\", \"email\", \"matricula\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "Deve retornar 400 quando não enviar o email do aluno",
+        "tipo": "negativo-400",
+        "dadosAluno": { 
+            "nome": "Gabriel Santos",
+            "email": "", 
+            "matricula": "2026101",
+            "senha": "87654321" 
+        },
+        "roleEsperada": null,
+        "mensagemdeErroEsperada": "Os campos \"nome\", \"email\", \"matricula\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "Deve retornar 400 quando não enviar a matricula do aluno",
+        "tipo": "negativo-400",
+        "dadosAluno": { 
+            "nome": "Gabriel Santos",
+            "email": "gabriel@email.com", 
+            "matricula": "",
+            "senha": "87654321" 
+        },
+        "roleEsperada": null,
+        "mensagemdeErroEsperada": "Os campos \"nome\", \"email\", \"matricula\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "Deve retornar 400 quando não enviar a senha do aluno",
+        "tipo": "negativo-400",
+        "dadosAluno": { 
+            "nome": "Gabriel Santos",
+            "email": "gabriel@email.com", 
+            "matricula": "2026101",
+            "senha": ""
+        },
+        "roleEsperada": null,
+        "mensagemdeErroEsperada": "Os campos \"nome\", \"email\", \"matricula\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "Deve retornar 401 quando utilizar token expirado para realizar o cadastro de um novo aluno",
+        "tipo": "negativo-401",
+        "dadosAluno": { 
+            "nome": "Gabriel Santos",
+            "email": "gabriel@email.com", 
+            "matricula": "2026101",
+            "senha": "87654321" 
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbi1wcmluY2lwYWwiLCJyb2xlIjoiYWRtaW4iLCJub21lIjoiQWRtaW5pc3RyYWRvciBkbyBTaXN0ZW1hIiwiaWF0IjoxNzg4NTYyNTI2LCJleHAiOjE3ODg1OTEzMjZ9.j3L7qMrZ6ua55Hnf5wyjsSff1IysvcKeKWha_RkPcSU", 
+        "roleEsperada": null,
+        "mensagemdeErroEsperada": "Token de autenticação inválido ou expirado.",
+        "statusCodeEsperado": 401
+    },
+    {
+        "testTitle": "Deve retornar 401 quando utilizar token inválido para realizar o cadastro de um novo aluno",
+        "tipo": "negativo-401",
+        "dadosAluno": { 
+            "nome": "Gabriel Santos",
+            "email": "gabriel@email.com", 
+            "matricula": "2026101",
+            "senha": "87654321" 
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbi1wcmluY2lwYWwiLCJyb2xlIjoiYWRtaW4iLCJub21lIjoiQWRtaW5pc3RyYWRvciBkbyBTaXN0ZW1hIiwiaWF0IjoxNzg4NTYyNTI2LCJleHAiOjE3ODg1OTEzMjZ9.j3L7qMrZ6ua55Hnf5wyjsSff1IysvcKeKWha_RkPcSU-INVALIDO", 
+        "roleEsperada": null,
+        "mensagemdeErroEsperada": "Token de autenticação inválido ou expirado.",
+        "statusCodeEsperado": 401
+    }
+]

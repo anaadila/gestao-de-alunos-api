@@ -1,0 +1,74 @@
+[
+    {
+        "testTitle": "ADMIN - Deve retornar 400 quando o usuário não enviar email",
+        "tipo": "admin",
+        "dadosLogin": { 
+            "email": "", 
+            "senha": "senha123" },
+        "mensagemDeErroEsperada": "Os campos \"email\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "ADMIN - Deve retornar 400 quando o usuário não enviar senha",
+        "tipo": "admin",
+        "dadosLogin": { 
+            "email": "email@escola.com", 
+            "senha": "" },
+        "mensagemDeErroEsperada": "Os campos \"email\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "ADMIN - Deve retornar 401 quando o usuário inserir uma senha incorreta",
+        "tipo": "admin",
+        "dadosLogin": { 
+            "email": "admin@escola.com", 
+            "senha": "senha12345" },
+        "mensagemDeErroEsperada": "E-mail ou senha inválidos.",
+        "statusCodeEsperado": 401
+    },
+    {
+        "testTitle": "ADMIN - Deve retornar 401 quando o usuário for inexistente",
+        "tipo": "admin",
+        "dadosLogin": { 
+            "email": "inexistente@inexistente.com", 
+            "senha": "senha123" },
+        "mensagemDeErroEsperada": "E-mail ou senha inválidos.",
+        "statusCodeEsperado": 401
+    },
+    {
+        "testTitle": "ALUNO - Deve retornar 400 quando o usuário não enviar email",
+        "tipo": "aluno",
+        "dadosLogin": { 
+            "email": "", 
+            "senha": "senha123" },
+        "mensagemDeErroEsperada": "Os campos \"email\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "ALUNO - Deve retornar 400 quando o usuário não enviar senha",
+        "tipo": "aluno",
+        "dadosLogin": { 
+            "email": "aluno@email.com", 
+            "senha": "" },
+        "mensagemDeErroEsperada": "Os campos \"email\" e \"senha\" são obrigatórios.",
+        "statusCodeEsperado": 400
+    },
+    {
+        "testTitle": "ALUNO - Deve retornar 401 quando o usuário inserir uma senha incorreta",
+        "tipo": "aluno",
+        "dadosLogin": { 
+            "email": "ana.souza@example.com", 
+            "senha": "senha12345" },
+        "mensagemDeErroEsperada": "E-mail ou senha inválidos.",
+        "statusCodeEsperado": 401
+    },
+    {
+        "testTitle": "ALUNO - Deve retornar 401 quando o usuário for inexistente",
+        "tipo": "aluno",
+        "dadosLogin": { 
+            "email": "inexistente@inexistente.com", 
+            "senha": "senha123" },
+        "mensagemDeErroEsperada": "E-mail ou senha inválidos.",
+        "statusCodeEsperado": 401
+    }
+]
