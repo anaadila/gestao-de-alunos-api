@@ -20,18 +20,16 @@ export async function adminToken() {
     return `Bearer ${cacheTokenAdmin}`
 }
 
-export async function alunoToken() {
-    if (!cacheTokenAluno) {
+const BASE_URL = process.env.BASE_URL || 'hhttp://localhost:3000';
+
+export async function alunoToken(email = process.env.ALUNO_EMAIL, senha = process.env.ALUNO_PASSWORD) {
     const loginResposta = await api()
         .post('/api/auth/login')
         .set('Content-Type', 'application/json')
         .send({ 
-            email: process.env.ALUNO_EMAIL, 
-            senha: process.env.ALUNO_PASSWORD 
-        });
-    
-    cacheTokenAluno = loginResposta.body.token;
-    }
+            email: email, 
+            senha: senha
+        });    
 
-    return `Bearer ${cacheTokenAluno}`
+    return `Bearer ${loginResposta.body.token}`
 }
