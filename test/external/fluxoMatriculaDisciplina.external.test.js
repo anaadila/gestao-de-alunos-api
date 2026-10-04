@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { adminToken } from '../helpers/auth.js';
 import testesDeMatriculas from '../fixtures/matriculas.json' with { type: 'json' };
 
-describe('Matrícula de Aluno em Disciplina', async () => {
+describe('Matrícula de Aluno em Disciplina - External', async () => {
 
     let alunosCadastradosId = []
     let disciplinasCadastradasId = []
